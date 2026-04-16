@@ -1,12 +1,16 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sodium;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Principal;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.Win32;
 
 namespace Bluube.Auth;
@@ -331,7 +335,6 @@ public class BluubeAuth
 
     private void Terminate(string message)
     {
-        Debug.WriteLine(message);
         Environment.Exit(1);
     }
 
