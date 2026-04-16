@@ -52,9 +52,40 @@ Depois de um **`Initialize()`** bem-sucedido, o SDK **inicia automaticamente** u
 
 ### Pré-requisitos
 
-- [.NET SDK](https://dotnet.microsoft.com/download) — este exemplo usa **`net8.0`**; costuma funcionar também com **.NET 6** ou **7** alterando o `TargetFramework` no `.csproj` e testando; **.NET Framework** legado exige adaptar projeto e referências
+- [.NET SDK](https://dotnet.microsoft.com/download) — este exemplo usa **`net8.0`**; compatível também com **.NET 6** ou **7** alterando o `TargetFramework` no `.csproj`
 - Conta na Bluube com AppID, OwnerID e Version configurados
 - Para o **Form**: ambiente Windows com **Windows Forms**
+
+### Usando com .NET Framework 4.7.2 (WinForms)
+
+Se o seu projeto já usa **.NET Framework 4.7.2**, basta copiar o `BluubeAuth.cs` para ele e fazer dois ajustes:
+
+**1. Alterar o namespace (obrigatório)**
+
+O SDK usa _file-scoped namespace_ (C# 10+). No .NET Framework, envolva a classe com chaves:
+
+```csharp
+// SDK original (só compila em .NET 6+)
+namespace Bluube.Auth;
+public class BluubeAuth { ... }
+
+// Para .NET Framework 4.7.2
+namespace Bluube.Auth
+{
+    public class BluubeAuth { ... }
+}
+```
+
+**2. Instalar os pacotes NuGet (obrigatório)**
+
+Via Package Manager Console no Visual Studio:
+
+```
+Install-Package Newtonsoft.Json
+Install-Package Sodium.Core
+```
+
+Pronto — compile e use normalmente.
 
 ### Instalação
 
