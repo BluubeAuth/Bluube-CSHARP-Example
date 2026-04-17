@@ -1,12 +1,16 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sodium;
+using Ed25519Signature = Sodium.PublicKeyAuth;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Principal;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.Win32;
 
 namespace Bluube.Auth;
@@ -233,7 +237,7 @@ public class BluubeAuth
         var signature = Convert.FromBase64String(sig);
         var msg = Encoding.UTF8.GetBytes(ts + body);
 
-        if (!PublicKeyAuth.VerifyDetached(signature, msg, _serverPublicKey))
+        if (!Ed25519Signature.VerifyDetached(signature, msg, _serverPublicKey))
             throw new SecurityException("Integrity check failed. Response signature was tampered.");
     }
 
@@ -328,7 +332,6 @@ public class BluubeAuth
 
     private void Terminate(string message)
     {
-        Console.WriteLine("[TERMINATED] " + message);
         Environment.Exit(1);
     }
 
